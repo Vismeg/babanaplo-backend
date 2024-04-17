@@ -1,0 +1,6 @@
+@BabaNaplo_HostAddress = http://localhost:5244
+
+GET {{BabaNaplo_HostAddress}}/
+Accept: application/json
+
+###
