@@ -12,7 +12,21 @@ namespace Auth
     {
         public static void Main(string[] args)
         {
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                      policy =>
+                                      {
+                                          policy.WithOrigins("*")
+                                                                .AllowAnyHeader()
+                                                                .AllowAnyMethod()
+                                                                .AllowAnyOrigin();
+                                      });
+            });
 
             builder.Services.AddDbContext<AppDbContext>(option =>
             {
@@ -48,6 +62,7 @@ namespace Auth
 
             app.UseAuthorization();
 
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.MapControllers();
 

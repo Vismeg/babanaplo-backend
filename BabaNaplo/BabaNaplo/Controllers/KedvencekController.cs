@@ -47,6 +47,7 @@ namespace BabaNaplo.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPut]
         public IActionResult Put(Kedvencek kedvencek)
         {
@@ -63,6 +64,7 @@ namespace BabaNaplo.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

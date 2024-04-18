@@ -43,10 +43,11 @@ public partial class BabanaploContext : DbContext
 
             entity.HasIndex(e => e.BabaId, "BabaId");
 
-            entity.Property(e => e.Megnevezes).HasColumnType("text");
-
+            
+            entity.Property(e => e.Tortenet).HasColumnType("text");
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.BabaId).HasColumnType("int(11)");
+            entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.Megnevezes).HasMaxLength(64);
 
             entity.HasOne(d => d.Baba).WithMany(p => p.Esemenyeks)

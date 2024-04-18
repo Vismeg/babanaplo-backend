@@ -46,6 +46,7 @@ namespace BabaNaplo.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
         [HttpPut]
         public IActionResult Put(Novekedes novekedes)
         {
