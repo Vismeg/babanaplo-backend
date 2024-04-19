@@ -10,12 +10,12 @@ namespace BabaNaplo.Controllers
     [ApiController]
     //[System.Web.Http.Authorize(Roles = "ADMIN,USER")]
 
-    public class EsmenyekController : ControllerBase
+    public class EsemenyekController : ControllerBase
     {
 
         private readonly BabanaploContext _context; //AMÁ
 
-        public EsmenyekController(BabanaploContext context)  //AMÁ
+        public EsemenyekController(BabanaploContext context)  //AMÁ
         {
             _context = context;
         }
