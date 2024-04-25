@@ -34,6 +34,21 @@ namespace BabaNaplo.Controllers
             }
         }
 
+        [HttpGet("{felhaszId}")]
+        public IActionResult Get(Guid felhaszId)
+        {
+            var result = _context.Szuletes.Where(x => x.FelhasznaloId == felhaszId).ToList();
+            var context = new BabanaploContext();
+            try
+            {
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("GetFull")]
         public IActionResult GetFull()
         {
@@ -73,12 +88,30 @@ namespace BabaNaplo.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
-        public IActionResult Put(Szuletes szuletes)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Szuletes szuletes)
         {
+            var existingBaby = _context.Szuletes.FirstOrDefault(x => x.BabaId == id);
+
+            if (existingBaby != null)
+            {
+                existingBaby.BabaId = id;
+                existingBaby.FelhasznaloId = szuletes.FelhasznaloId;
+                existingBaby.Nev = szuletes.Nev;
+                existingBaby.Idopont = szuletes.Idopont;
+                existingBaby.Hely = szuletes.Hely;
+                existingBaby.Suly = szuletes.Suly;
+                existingBaby.Hossz = szuletes.Hossz;
+                existingBaby.Hajszin = szuletes.Hajszin;
+                existingBaby.Szemszin = szuletes.Szemszin;
+                existingBaby.Vercsoport = szuletes.Vercsoport;
+                existingBaby.Csillagjegy = szuletes.Csillagjegy;
+                existingBaby.Szuletestort = szuletes.Szuletestort;
+                existingBaby.Babafoto = szuletes.Babafoto;
+            }
             try
             {
-                _context.Update(szuletes);
+                _context.Update(existingBaby);
                 _context.SaveChanges();
                 return Ok(_context.Szuletes);
             }
@@ -88,6 +121,7 @@ namespace BabaNaplo.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

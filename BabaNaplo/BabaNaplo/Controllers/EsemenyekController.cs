@@ -34,6 +34,23 @@ namespace BabaNaplo.Controllers
             }
         }
 
+        [HttpGet("{felhsznaloId}")]
+        public IActionResult Get(Guid felhsznaloId)
+        {
+            var result = _context.Szuletes
+            .Include(x => x.Esemenyeks)
+            .Where(x => x.FelhasznaloId == felhsznaloId);
+            var context = new BabanaploContext();
+            try
+            {
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Post(Esemenyek esemenyek)
         {

@@ -1,5 +1,6 @@
 ﻿using BabaNaplo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Web.Http.Cors;
 
 namespace BabaNaplo.Controllers
@@ -32,6 +33,24 @@ namespace BabaNaplo.Controllers
 
             }
         }
+
+        [HttpGet("{felhsznaloId}")]
+        public IActionResult Get(Guid felhsznaloId)
+        {
+            var result = _context.Szuletes
+            .Include(x => x.Kedvenceks)
+            .Where(x => x.FelhasznaloId == felhsznaloId);
+            var context = new BabanaploContext();
+            try
+            {
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult Post(Kedvencek kedvencek)
         {

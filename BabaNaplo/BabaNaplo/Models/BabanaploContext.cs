@@ -9,9 +9,10 @@ public partial class BabanaploContext : DbContext
 
     }
 
-    public BabanaploContext(DbContextOptions<BabanaploContext> options)
+    public BabanaploContext(DbContextOptions options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
 
     public virtual DbSet<Esemenyek> Esemenyeks { get; set; }
@@ -43,7 +44,7 @@ public partial class BabanaploContext : DbContext
 
             entity.HasIndex(e => e.BabaId, "BabaId");
 
-            
+
             entity.Property(e => e.Tortenet).HasColumnType("text");
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.BabaId).HasColumnType("int(11)");
@@ -101,7 +102,7 @@ public partial class BabanaploContext : DbContext
 
             entity.Property(e => e.BabaId).HasColumnType("int(64)");
             entity.Property(e => e.Csillagjegy).HasMaxLength(32);
-            entity.Property(e => e.FelhasznaloId).HasColumnType("int(64)");
+            entity.Property(e => e.FelhasznaloId).HasColumnType("char(36)");
             entity.Property(e => e.Hajszin).HasMaxLength(64);
             entity.Property(e => e.Hely).HasMaxLength(64);
             entity.Property(e => e.Idopont).HasColumnType("datetime");
